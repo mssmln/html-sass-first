@@ -1,0 +1,75 @@
+$colour_hea_foo: #f08080;
+$colour_left_right: #add8e6;
+$colour_center: #ffa500;
+@mixin main_sx_dx{
+  color: green;
+  font-size: 20px;
+}
+$flottante_sx: left;
+@mixin clearFix{ // sempre al :after
+  clear: both;
+  content: "";
+  display: table;
+}
+$altezza: 70px;
+$altezza_2: 100%;
+$relative: relative;
+@mixin central{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+
+// css code further down
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+header,
+footer{
+  // $altezza: 70px; // qui è locale e non puoi usarla altrove
+  height: $altezza;
+  background-color: $colour_hea_foo;
+  position: $relative;
+  p{
+    @include central;
+  }
+}
+
+main{
+  // $viewport: 100vh;
+  height: calc(100vh - #{$altezza * 2});
+  &:after{
+    @include clearFix;
+  }
+
+
+  // sons of main
+  #left,
+  #right{
+    background-color: $colour_left_right;
+    $width: 25%; // posso usare gli stessi nomi se in locale
+    width: $width;
+    @include main_sx_dx;
+  }
+  #left,
+  #right,
+  #center{
+    float: $flottante_sx;
+    height: $altezza_2;
+    position: $relative;
+    p{
+      @include central;
+    }
+  }
+  #center{
+    background-color: $colour_center;
+    $width: 50%; // posso usare gli stessi nomi se in locale
+    width: $width;
+  }
+}
